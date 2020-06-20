@@ -1,7 +1,7 @@
 '''
 link for dataset : https://www.kaggle.com/datamunge/sign-language-mnist#amer_sign2.png
 '''
-
+#sign language recognition
 import tensorflow as tf
 import keras
 import keras.layers as k
@@ -39,7 +39,13 @@ def sign_model(X_shape = (28,28,1)):
     model = Model(inputs = X_input,outputs = x,name = 'sign_model')
     return model
 
-'''sign language recognition'''
+
+class myCallback(keras.callbacks.Callback):
+    def on_epoch_end(self, epoch,logs = {}):
+        if logs.get('val_accuracy') > 0.995:
+            print('reached 99.5% accuracy,so stop training!!')
+            self.model.stop_training = True
+
 #separating the labels into train_label and image pixel into train_set
 train_label = train_data['label'].values
 del train_data['label']
@@ -70,7 +76,10 @@ model = sign_model(X_shape = (28,28,1))
 model.summary()
 model.compile(optimizer = 'adam', loss = 'sparse_categorical_crossentropy',metrics = ['accuracy'])
 
-history = model.fit(training_set,epochs = 10,validation_data = validation_set,verbose = 1)
+            
+callbacks = myCallback()
+
+history = model.fit(training_set,epochs = 25,validation_data = validation_set,verbose = 1,callbacks = [callbacks])
 
 #plotting graphs
 val_loss = history.history['val_loss']
@@ -94,4 +103,5 @@ plt.show()
 loss,accuracy = model.evaluate_generator(test_set)
 print('loss on test set :',loss)
 print('accuracy on test set :',accuracy)
+
 
