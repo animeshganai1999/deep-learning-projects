@@ -1,6 +1,7 @@
 '''
 link for dataset : https://www.kaggle.com/datamunge/sign-language-mnist#amer_sign2.png
 '''
+
 import tensorflow as tf
 import keras
 import keras.layers as k
@@ -38,7 +39,7 @@ def sign_model(X_shape = (28,28,1)):
     model = Model(inputs = X_input,outputs = x,name = 'sign_model')
     return model
 
-
+'''sign language recognition'''
 #separating the labels into train_label and image pixel into train_set
 train_label = train_data['label'].values
 del train_data['label']
