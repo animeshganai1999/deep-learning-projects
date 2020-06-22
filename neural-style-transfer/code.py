@@ -2,7 +2,10 @@ import tensorflow as tf
 import scipy.io
 import numpy as np
 import scipy.misc
-
+'''
+    download vgg-19 .mat file : 
+        link : https://www.kaggle.com/teksab/imagenetvggverydeep19mat
+'''
 #disable eager execution technique in version 2 of tensorflow
 tf.compat.v1.disable_eager_execution()
 
@@ -12,7 +15,7 @@ class CONFIG:
     COLOR_CHANNELS = 3
     NOISE_RATIO = 0.6
     MEANS = np.array([123.68, 116.779, 103.939]).reshape((1,1,1,3)) 
-    VGG_MODEL = 'pretrained-model/imagenet-vgg-verydeep-19.mat' # Pick the VGG 19-layer model by from the paper "Very Deep Convolutional Networks for Large-Scale Image Recognition".
+    VGG_MODEL = 'imagenet-vgg-verydeep-19.mat' # Pick the VGG 19-layer model by from the paper "Very Deep Convolutional Networks for Large-Scale Image Recognition".
     STYLE_IMAGE = 'style.jpg' # Style image to use.
     CONTENT_IMAGE = 'content.jpg' # Content image to use.
     OUTPUT_DIR = 'output/'
